@@ -1,5 +1,4 @@
 
-import LetterGlitch from '@/components/ui/LetterGlitch';
 import SmartHeader from '@/components/layout/SmartHeader';
 import SmartFooter from '@/components/layout/SmartFooter';
 import HomeHero from '@/components/sections/HomeHero';
@@ -13,21 +12,12 @@ import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
 
 const SmartHome = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Background Glitch Effect */}
-      <LetterGlitch 
-        glitchSpeed={50}
-        glitchColors={['#2b4539', '#61dca3', '#61b3dc']}
-        centerVignette={false}
-        outerVignette={true}
-        smooth={true}
-      />
-      
+    <div className="relative min-h-screen">
       {/* Header */}
       <SmartHeader />
       
       {/* Main Content */}
-      <main className="relative z-10">
+      <main className="relative">
         <div id="home">
           <HomeHero />
         </div>

@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { Shield, Home, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import LetterGlitch from '@/components/ui/LetterGlitch';
 
 const HomeHero = () => {
   const handleWhatsAppClick = () => {
@@ -10,6 +11,16 @@ const HomeHero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Glitch Effect only for Hero */}
+      <LetterGlitch 
+        glitchSpeed={50}
+        glitchColors={['#2b4539', '#61dca3', '#61b3dc']}
+        centerVignette={false}
+        outerVignette={true}
+        smooth={true}
+        className="absolute inset-0 z-0"
+      />
+      
       <div className="relative z-10 section-container text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -75,7 +86,17 @@ const HomeHero = () => {
             { icon: Home, title: 'Automação', desc: 'Controle total' },
             { icon: Shield, title: 'Segurança', desc: 'Proteção 24/7' },
             { icon: Zap, title: 'Eficiência', desc: 'Economia de energia' },
-            { icon: () => <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-6 w-6 sm:h-8 sm:w-8 mx-auto" />, title: 'Suporte', desc: 'Atendimento completo' }
+            { 
+              icon: () => (
+                <img 
+                  src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" 
+                  alt="WhatsApp" 
+                  className="h-6 w-6 sm:h-8 sm:w-8 mx-auto" 
+                />
+              ), 
+              title: 'Suporte', 
+              desc: 'Atendimento completo' 
+            }
           ].map((item, index) => (
             <div key={index} className="text-center p-3 sm:p-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
               {typeof item.icon === 'function' ? (
