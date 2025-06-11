@@ -9,45 +9,59 @@ import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import Gallery from '@/components/sections/Gallery';
 import FinalContact from '@/components/sections/FinalContact';
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
+import LetterGlitch from '@/components/ui/LetterGlitch';
 
 const SmartHome = () => {
   return (
     <div className="relative min-h-screen">
-      {/* Header */}
-      <SmartHeader />
+      {/* Background Glitch Effect for entire site */}
+      <LetterGlitch 
+        glitchSpeed={50}
+        glitchColors={['#2b4539', '#61dca3', '#61b3dc']}
+        centerVignette={false}
+        outerVignette={true}
+        smooth={true}
+        className="fixed inset-0 z-0"
+      />
       
-      {/* Main Content */}
-      <main className="relative">
-        <div id="home">
-          <HomeHero />
-        </div>
+      {/* All content with higher z-index */}
+      <div className="relative z-10">
+        {/* Header */}
+        <SmartHeader />
         
-        <ProblemSolution />
+        {/* Main Content */}
+        <main className="relative">
+          <div id="home">
+            <HomeHero />
+          </div>
+          
+          <ProblemSolution />
+          
+          <div id="services">
+            <HomeServices />
+          </div>
+          
+          <div id="how-it-works">
+            <HowItWorks />
+          </div>
+          
+          <WhyChooseUs />
+          
+          <div id="gallery">
+            <Gallery />
+          </div>
+          
+          <div id="contact">
+            <FinalContact />
+          </div>
+        </main>
         
-        <div id="services">
-          <HomeServices />
-        </div>
-        
-        <div id="how-it-works">
-          <HowItWorks />
-        </div>
-        
-        <WhyChooseUs />
-        
-        <div id="gallery">
-          <Gallery />
-        </div>
-        
-        <div id="contact">
-          <FinalContact />
-        </div>
-      </main>
+        {/* Footer */}
+        <SmartFooter />
+      </div>
       
       {/* WhatsApp Floating Button */}
       <WhatsAppFloat />
-      
-      {/* Footer */}
-      <SmartFooter />
     </div>
   );
 };
