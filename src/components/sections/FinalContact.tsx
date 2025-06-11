@@ -1,6 +1,5 @@
-
 import { motion } from 'framer-motion';
-import { MessageCircle, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const FinalContact = () => {
@@ -35,7 +34,7 @@ const FinalContact = () => {
               onClick={handleWhatsAppClick}
               className="bg-green-500 hover:bg-green-600 text-white px-12 py-8 text-2xl font-bold rounded-xl shadow-2xl hover:shadow-green-500/25 transition-all duration-300"
             >
-              <MessageCircle className="h-8 w-8 mr-4" />
+              <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-8 w-8 mr-4" />
               Fale Conosco Via WhatsApp!
             </Button>
           </motion.div>

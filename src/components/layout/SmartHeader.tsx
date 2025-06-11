@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -89,7 +89,7 @@ const SmartHeader = () => {
               onClick={handleWhatsAppClick}
               className="ml-4 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
             >
-              <MessageCircle className="h-4 w-4 mr-2" />
+              <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-4 w-4 mr-2" />
               WhatsApp
             </Button>
           </nav>
@@ -135,7 +135,7 @@ const SmartHeader = () => {
               onClick={handleWhatsAppClick}
               className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-md font-medium"
             >
-              <MessageCircle className="h-4 w-4 mr-2" />
+              <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-4 w-4 mr-2" />
               Fale Conosco
             </Button>
           </div>

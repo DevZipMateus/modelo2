@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { MessageCircle, Shield, Home, Zap } from 'lucide-react';
+import { Shield, Home, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const HomeHero = () => {
@@ -52,7 +52,7 @@ const HomeHero = () => {
             onClick={handleWhatsAppClick}
             className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+            <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-4 w-4 sm:h-5 sm:w-5" />
             <span>Solicite seu Orçamento Grátis</span>
           </Button>
           
@@ -75,10 +75,14 @@ const HomeHero = () => {
             { icon: Home, title: 'Automação', desc: 'Controle total' },
             { icon: Shield, title: 'Segurança', desc: 'Proteção 24/7' },
             { icon: Zap, title: 'Eficiência', desc: 'Economia de energia' },
-            { icon: MessageCircle, title: 'Suporte', desc: 'Atendimento completo' }
+            { icon: () => <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-6 w-6 sm:h-8 sm:w-8 mx-auto" />, title: 'Suporte', desc: 'Atendimento completo' }
           ].map((item, index) => (
             <div key={index} className="text-center p-3 sm:p-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
-              <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-green-400 mx-auto mb-2" />
+              {typeof item.icon === 'function' ? (
+                <item.icon />
+              ) : (
+                <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-green-400 mx-auto mb-2" />
+              )}
               <h3 className="text-white font-semibold text-sm sm:text-base">{item.title}</h3>
               <p className="text-slate-400 text-xs sm:text-sm">{item.desc}</p>
             </div>

@@ -1,5 +1,5 @@
 
-import { MessageCircle, Mail, MapPin, Phone, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Phone, Instagram, Facebook, Linkedin } from 'lucide-react';
 
 const SmartFooter = () => {
   const handleWhatsAppClick = () => {
@@ -65,7 +65,7 @@ const SmartFooter = () => {
                 onClick={handleWhatsAppClick}
                 className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105"
               >
-                <MessageCircle className="h-4 w-4" />
+                <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-4 w-4" />
                 <span>WhatsApp</span>
               </button>
             </div>
