@@ -42,21 +42,21 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="relative py-20 bg-slate-900/30 backdrop-blur-sm">
-      <div className="section-container">
+    <section className="relative py-12 sm:py-16 md:py-20 bg-slate-900/30 backdrop-blur-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <MotionWrapper
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
           {...(!reduceAnimations && fadeInVariant)}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
             Como <span className="text-green-400">Funciona</span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto px-4 sm:px-0">
             Um processo simples e transparente para transformar sua casa
           </p>
         </MotionWrapper>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {steps.map((step, index) => (
             <MotionWrapper
               key={index}
@@ -66,17 +66,17 @@ const HowItWorks = () => {
                 transition: { duration: 0.5, delay: index * 0.1 }
               })}
             >
-              <div className="relative mb-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <step.icon className="h-10 w-10 text-white" />
+              <div className="relative mb-4 sm:mb-6">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <step.icon className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-black">{step.number}</span>
+                <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center">
+                  <span className="text-xs sm:text-sm font-bold text-black">{step.number}</span>
                 </div>
               </div>
               
-              <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
-              <p className="text-slate-400">{step.description}</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3 px-2">{step.title}</h3>
+              <p className="text-sm sm:text-base text-slate-400 px-2">{step.description}</p>
               
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2">
