@@ -17,8 +17,8 @@ const HomeHero = () => {
     scale: 1.00,
     scaleMobile: 1.00,
     color: 0x66f51b,
-    backgroundColor: 0x090728,
-    points: 7.00,
+    backgroundColor: 0x90728,
+    points: 4.00,
     maxDistance: 23.00,
     spacing: 18.00
   });
@@ -55,47 +55,49 @@ const HomeHero = () => {
         />
       )}
       
-      <div className="relative z-10 section-container text-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 text-center">
         <MotionWrapper
           {...(!reduceAnimations && fadeInVariant)}
-          className="mb-6 sm:mb-8"
+          className="mb-4 sm:mb-6 lg:mb-8"
         >
           <div className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full border border-green-400/30 bg-green-400/10 mb-4 sm:mb-6">
-            <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-green-400" />
-            <span className="text-green-400 text-xs sm:text-sm font-medium">Automação & Segurança Residencial</span>
+            <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-green-400 flex-shrink-0" />
+            <span className="text-green-400 text-xs sm:text-sm font-medium whitespace-nowrap">Automação & Segurança Residencial</span>
           </div>
         </MotionWrapper>
 
         <MotionWrapper
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-4 sm:px-0"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight"
           {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.05, ease: 'easeOut' } })}
         >
-          Sua Casa <span className="text-green-400">Inteligente</span><br />
+          Sua Casa <span className="text-green-400">Inteligente</span>
+          <br className="hidden sm:block" />
+          <span className="sm:hidden"> </span>
           e <span className="text-blue-400">Segura</span>
         </MotionWrapper>
 
         <MotionWrapper
-          className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto mb-6 sm:mb-8 lg:mb-10 leading-relaxed"
           {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.1, ease: 'easeOut' } })}
         >
-          Transforme seu lar em um ambiente de <strong>conforto</strong>, <strong>eficiência</strong> e <strong>tranquilidade</strong> com nossas soluções personalizadas
+          Transforme seu lar em um ambiente de <strong className="text-green-400">conforto</strong>, <strong className="text-blue-400">eficiência</strong> e <strong className="text-white">tranquilidade</strong> com nossas soluções personalizadas
         </MotionWrapper>
 
         <MotionWrapper
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-4 sm:px-0"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center items-stretch sm:items-center mb-8 sm:mb-12 lg:mb-16"
           {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.15, ease: 'easeOut' } })}
         >
           <Button
             onClick={handleWhatsAppClick}
-            className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105"
+            className="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg font-semibold rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:scale-105 min-h-[3rem] sm:min-h-[3.5rem]"
           >
-            <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-4 w-4 sm:h-5 sm:w-5" />
-            <span>Solicite seu Orçamento Grátis</span>
+            <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+            <span className="text-center">Solicite seu Orçamento Grátis</span>
           </Button>
           
           <Button
             variant="outline"
-            className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-black px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold rounded-lg transition-all duration-300"
+            className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-black px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg font-semibold rounded-lg transition-all duration-300 min-h-[3rem] sm:min-h-[3.5rem]"
             onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Conheça Nossos Serviços
@@ -103,21 +105,21 @@ const HomeHero = () => {
         </MotionWrapper>
 
         <MotionWrapper
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 max-w-4xl mx-auto px-4 sm:px-0"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-5xl mx-auto"
           {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.2, ease: 'easeOut' } })}
         >
           {[
             { icon: Home, title: 'Automação', desc: 'Controle total' },
             { icon: Shield, title: 'Segurança', desc: 'Proteção 24/7' },
             { icon: Zap, title: 'Eficiência', desc: 'Economia de energia' },
-            { icon: () => <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-6 w-6 sm:h-8 sm:w-8 mx-auto" />, title: 'Suporte', desc: 'Atendimento completo' }
+            { icon: () => <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 mx-auto" />, title: 'Suporte', desc: 'Atendimento completo' }
           ].map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div key={index} className="text-center p-3 sm:p-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
-                <IconComponent className="h-6 w-6 sm:h-8 sm:w-8 text-green-400 mx-auto mb-2" />
-                <h3 className="text-white font-semibold text-sm sm:text-base">{item.title}</h3>
-                <p className="text-slate-400 text-xs sm:text-sm">{item.desc}</p>
+              <div key={index} className="text-center p-3 sm:p-4 lg:p-6 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-green-400 mx-auto mb-2 sm:mb-3 flex-shrink-0" />
+                <h3 className="text-white font-semibold text-sm sm:text-base lg:text-lg mb-1">{item.title}</h3>
+                <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed">{item.desc}</p>
               </div>
             );
           })}

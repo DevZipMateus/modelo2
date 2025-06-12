@@ -78,16 +78,22 @@
     /* Performance optimizations */
     font-display: swap;
     text-rendering: optimizeSpeed;
+    /* Mobile optimization */
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
+    /* Mobile text optimization */
+    line-height: 1.2;
   }
 
   /* Critical CSS for above-the-fold content */
   .hero-section {
     background-color: #090728;
     min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,19 +133,37 @@
   .will-change-opacity {
     will-change: opacity;
   }
+
+  /* Mobile-first responsive text */
+  html {
+    font-size: 14px;
+  }
+  
+  @media (min-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
 }
 
 @layer components {
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-3 text-white;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 text-white leading-tight;
   }
   
   .section-subtitle {
-    @apply text-lg md:text-xl text-slate-300 max-w-3xl mb-8;
+    @apply text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl mb-6 sm:mb-8 leading-relaxed;
+  }
+
+  /* Mobile-optimized button styles */
+  .btn-mobile {
+    @apply min-h-[3rem] px-6 py-4 text-sm font-semibold rounded-lg transition-all duration-300;
+    @apply sm:min-h-[3.5rem] sm:px-8 sm:py-5 sm:text-base;
+    @apply lg:px-10 lg:py-6 lg:text-lg;
   }
 
   /* Optimized hover effects with GPU acceleration */
@@ -148,8 +172,10 @@
     will-change: transform;
   }
   
-  .hover-scale:hover {
-    transform: scale(1.02);
+  @media (hover: hover) {
+    .hover-scale:hover {
+      transform: scale(1.02);
+    }
   }
 
   /* Performance-optimized transitions */
@@ -162,11 +188,38 @@
   .animate-optimized {
     contain: layout style paint;
   }
+
+  /* Mobile-friendly grid */
+  .grid-mobile {
+    @apply grid grid-cols-1 gap-4;
+    @apply sm:grid-cols-2 sm:gap-6;
+    @apply lg:grid-cols-3 lg:gap-8;
+    @apply xl:grid-cols-4;
+  }
+
+  /* Responsive card styles */
+  .card-mobile {
+    @apply p-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10;
+    @apply hover:bg-white/10 transition-all duration-300;
+    @apply sm:p-6;
+  }
+
+  /* Mobile navigation */
+  .nav-mobile {
+    @apply fixed inset-0 z-50 bg-black/95 backdrop-blur-sm;
+    @apply lg:relative lg:bg-transparent lg:backdrop-blur-none;
+  }
 }
 
 /* Optimized scrollbar with minimal repaints */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
+}
+
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
 }
 
 ::-webkit-scrollbar-track {
@@ -212,7 +265,7 @@ img {
   }
 }
 
-/* Optimized animations that respect reduced motion */
+/* Mobile-optimized animations that respect reduced motion */
 @keyframes optimized-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.8; }
@@ -225,7 +278,13 @@ img {
 /* Content visibility for better rendering performance */
 section {
   content-visibility: auto;
-  contain-intrinsic-size: 0 400px;
+  contain-intrinsic-size: 0 300px;
+}
+
+@media (min-width: 768px) {
+  section {
+    contain-intrinsic-size: 0 400px;
+  }
 }
 
 /* Critical sections should not use content-visibility */
@@ -236,10 +295,16 @@ section {
 
 /* Intersection Observer loading states */
 .lazy-loading {
-  min-height: 200px;
+  min-height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .lazy-loading {
+    min-height: 200px;
+  }
 }
 
 .lazy-loaded {
@@ -260,4 +325,64 @@ section {
 /* Resource hints for better performance */
 .preload-critical {
   font-display: swap;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 767px) {
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Optimize touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve readability on small screens */
+  p, li {
+    line-height: 1.6;
+  }
+  
+  /* Reduce motion for better mobile experience */
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section-container {
+    @apply px-8 py-14;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  /* Enable hover effects only on devices that support it */
+  .hover-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* High-DPI screen optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    min-height: 100vh;
+    padding: 2rem 0;
+  }
+  
+  .section-container {
+    @apply py-6;
+  }
 }
