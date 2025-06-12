@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const vantaEffect = useRef<any>(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -31,18 +32,39 @@ const Hero = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (sectionRef.current && (window as any).VANTA) {
+      vantaEffect.current = (window as any).VANTA.NET({
+        el: sectionRef.current,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x3fff6c,
+        backgroundColor: 0x1a0b34,
+        points: 4.00,
+        maxDistance: 24.00,
+        spacing: 17.00
+      });
+    }
+
+    return () => {
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+      }
+    };
+  }, []);
+
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center bg-slate-50 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
       id="home"
     >
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-slate-50/95"></div>
-        <div className="absolute inset-0 opacity-40 bg-[url('/images/pattern.svg')] bg-repeat"></div>
-      </div>
-
-      <div className="section-container relative z-10 flex flex-col items-center text-center">
+      <div className="relative z-10 section-container flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -54,7 +76,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.h1
-          className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-tight lg:leading-tight mb-6 max-w-4xl"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-tight lg:leading-tight mb-6 max-w-4xl text-white"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -64,7 +86,7 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl text-slate-600 max-w-2xl mb-8"
+          className="text-lg md:text-xl text-slate-300 max-w-2xl mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.4 }}
