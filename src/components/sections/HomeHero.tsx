@@ -3,48 +3,35 @@ import { motion } from 'framer-motion';
 import { Shield, Home, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePerformance } from '@/hooks/usePerformance';
-import { useEffect, useRef } from 'react';
+import { useVantaEffect } from '@/hooks/useVantaEffect';
 
 const HomeHero = () => {
   const { reduceAnimations } = usePerformance();
-  const vantaRef = useRef<HTMLElement>(null);
-  const vantaEffect = useRef<any>(null);
+  
+  const { vantaRef, isLoaded } = useVantaEffect({
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00,
+    color: 0x66f51b,
+    backgroundColor: 0x090728,
+    points: 7.00,
+    maxDistance: 23.00,
+    spacing: 18.00
+  });
 
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/5521999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20automação%20e%20segurança%20residencial.', '_blank');
   };
 
-  useEffect(() => {
-    if (!reduceAnimations && vantaRef.current && (window as any).VANTA) {
-      vantaEffect.current = (window as any).VANTA.NET({
-        el: vantaRef.current,
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        color: 0x66f51b,
-        backgroundColor: 0x090728,
-        points: 7.00,
-        maxDistance: 23.00,
-        spacing: 18.00
-      });
-    }
-
-    return () => {
-      if (vantaEffect.current) {
-        vantaEffect.current.destroy();
-      }
-    };
-  }, [reduceAnimations]);
-
-  // Simplified animation variants for better performance
+  // Optimized animation variants
   const fadeInVariant = reduceAnimations ? {} : {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.4 }
+    transition: { duration: 0.4, ease: 'easeOut' }
   };
 
   const MotionWrapper = reduceAnimations ? 'div' : motion.div;
@@ -57,6 +44,17 @@ const HomeHero = () => {
         backgroundColor: '#090728'
       }}
     >
+      {/* Fallback background for when Vanta is loading */}
+      {!isLoaded && !reduceAnimations && (
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, #66f51b 0%, transparent 50%), 
+                             radial-gradient(circle at 75% 75%, #61b3dc 0%, transparent 50%)`
+          }}
+        />
+      )}
+      
       <div className="relative z-10 section-container text-center">
         <MotionWrapper
           {...(!reduceAnimations && fadeInVariant)}
@@ -70,7 +68,7 @@ const HomeHero = () => {
 
         <MotionWrapper
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-4 sm:px-0"
-          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.05 } })}
+          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.05, ease: 'easeOut' } })}
         >
           Sua Casa <span className="text-green-400">Inteligente</span><br />
           e <span className="text-blue-400">Segura</span>
@@ -78,14 +76,14 @@ const HomeHero = () => {
 
         <MotionWrapper
           className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0"
-          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.1 } })}
+          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.1, ease: 'easeOut' } })}
         >
           Transforme seu lar em um ambiente de <strong>conforto</strong>, <strong>eficiência</strong> e <strong>tranquilidade</strong> com nossas soluções personalizadas
         </MotionWrapper>
 
         <MotionWrapper
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-4 sm:px-0"
-          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.15 } })}
+          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.15, ease: 'easeOut' } })}
         >
           <Button
             onClick={handleWhatsAppClick}
@@ -106,7 +104,7 @@ const HomeHero = () => {
 
         <MotionWrapper
           className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 max-w-4xl mx-auto px-4 sm:px-0"
-          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.2 } })}
+          {...(!reduceAnimations && { ...fadeInVariant, transition: { duration: 0.4, delay: 0.2, ease: 'easeOut' } })}
         >
           {[
             { icon: Home, title: 'Automação', desc: 'Controle total' },

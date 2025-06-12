@@ -1,47 +1,74 @@
 
-import { lazy, Suspense, useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, ReactNode } from 'react';
 
 interface LazySectionProps {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
   threshold?: number;
+  rootMargin?: string;
+  triggerOnce?: boolean;
 }
 
-const LazySection = ({ children, fallback, threshold = 0.1 }: LazySectionProps) => {
+const LazySection = ({ 
+  children, 
+  fallback, 
+  threshold = 0.1,
+  rootMargin = '50px',
+  triggerOnce = true
+}: LazySectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    // Skip if already triggered and triggerOnce is true
+    if (triggerOnce && hasTriggered) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        const shouldShow = entry.isIntersecting;
+        
+        if (shouldShow) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
+          setHasTriggered(true);
+          
+          // Disconnect observer if triggerOnce is true
+          if (triggerOnce) {
+            observer.disconnect();
+          }
+        } else if (!triggerOnce) {
+          setIsVisible(false);
         }
       },
-      { threshold }
+      { 
+        threshold,
+        rootMargin
+      }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(element);
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      observer.disconnect();
     };
-  }, [threshold]);
+  }, [threshold, rootMargin, triggerOnce, hasTriggered]);
+
+  const DefaultFallback = () => (
+    <div className="lazy-loading">
+      <div className="animate-pulse text-slate-400">Carregando...</div>
+    </div>
+  );
 
   return (
-    <div ref={ref} className="min-h-[50px]">
-      {isVisible ? (
-        <Suspense fallback={fallback || <div className="h-32 flex items-center justify-center"><div className="animate-pulse text-slate-400">Carregando...</div></div>}>
-          {children}
-        </Suspense>
-      ) : (
-        fallback || <div className="h-32 flex items-center justify-center"><div className="animate-pulse text-slate-400">Carregando...</div></div>
-      )}
+    <div 
+      ref={ref} 
+      className={`min-h-[50px] ${isVisible ? 'lazy-loaded' : ''}`}
+      style={{ contentVisibility: 'auto', containIntrinsicSize: '0 200px' }}
+    >
+      {isVisible ? children : (fallback || <DefaultFallback />)}
     </div>
   );
 };
