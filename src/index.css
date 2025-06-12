@@ -95,9 +95,9 @@
   }
 }
 
-/* Custom scrollbar */
+/* Scrollbar otimizado */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -106,15 +106,31 @@
 
 ::-webkit-scrollbar-thumb {
   background: #2b4539;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #61dca3;
 }
 
-/* Selection color */
+/* Selection otimizada */
 ::selection {
   background: #61dca3;
   color: #000000;
+}
+
+/* Otimizações de performance */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reduzir repaints */
+.transition-optimized {
+  transform: translateZ(0);
+  will-change: transform;
 }

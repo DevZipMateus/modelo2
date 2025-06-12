@@ -1,14 +1,23 @@
 
+import { lazy, Suspense } from 'react';
 import SmartHeader from '@/components/layout/SmartHeader';
 import SmartFooter from '@/components/layout/SmartFooter';
 import HomeHero from '@/components/sections/HomeHero';
-import ProblemSolution from '@/components/sections/ProblemSolution';
-import HomeServices from '@/components/sections/HomeServices';
-import HowItWorks from '@/components/sections/HowItWorks';
-import WhyChooseUs from '@/components/sections/WhyChooseUs';
-import Gallery from '@/components/sections/Gallery';
-import FinalContact from '@/components/sections/FinalContact';
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
+
+// Lazy load das seções não críticas
+const ProblemSolution = lazy(() => import('@/components/sections/ProblemSolution'));
+const HomeServices = lazy(() => import('@/components/sections/HomeServices'));
+const HowItWorks = lazy(() => import('@/components/sections/HowItWorks'));
+const WhyChooseUs = lazy(() => import('@/components/sections/WhyChooseUs'));
+const Gallery = lazy(() => import('@/components/sections/Gallery'));
+const FinalContact = lazy(() => import('@/components/sections/FinalContact'));
+
+const LoadingFallback = () => (
+  <div className="h-32 flex items-center justify-center">
+    <div className="animate-pulse text-slate-400">Carregando...</div>
+  </div>
+);
 
 const SmartHome = () => {
   return (
@@ -22,24 +31,36 @@ const SmartHome = () => {
           <HomeHero />
         </div>
         
-        <ProblemSolution />
+        <Suspense fallback={<LoadingFallback />}>
+          <ProblemSolution />
+        </Suspense>
         
         <div id="services">
-          <HomeServices />
+          <Suspense fallback={<LoadingFallback />}>
+            <HomeServices />
+          </Suspense>
         </div>
         
         <div id="how-it-works">
-          <HowItWorks />
+          <Suspense fallback={<LoadingFallback />}>
+            <HowItWorks />
+          </Suspense>
         </div>
         
-        <WhyChooseUs />
+        <Suspense fallback={<LoadingFallback />}>
+          <WhyChooseUs />
+        </Suspense>
         
         <div id="gallery">
-          <Gallery />
+          <Suspense fallback={<LoadingFallback />}>
+            <Gallery />
+          </Suspense>
         </div>
         
         <div id="contact">
-          <FinalContact />
+          <Suspense fallback={<LoadingFallback />}>
+            <FinalContact />
+          </Suspense>
         </div>
       </main>
       
