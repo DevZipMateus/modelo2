@@ -1,7 +1,7 @@
+
 import { motion } from 'framer-motion';
 import { Shield, Home, Zap, LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import LetterGlitch from '@/components/ui/LetterGlitch';
 
 const HomeHero = () => {
   const handleWhatsAppClick = () => {
@@ -17,17 +17,7 @@ const HomeHero = () => {
   );
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Glitch Effect only for Hero */}
-      <LetterGlitch 
-        glitchSpeed={50}
-        glitchColors={['#2b4539', '#61dca3', '#61b3dc']}
-        centerVignette={false}
-        outerVignette={true}
-        smooth={true}
-        className="absolute inset-0 z-0"
-      />
-      
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 to-black">
       <div className="relative z-10 section-container text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
