@@ -4,8 +4,9 @@ import SmartHeader from '@/components/layout/SmartHeader';
 import SmartFooter from '@/components/layout/SmartFooter';
 import HomeHero from '@/components/sections/HomeHero';
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
+import LazySection from '@/components/ui/LazySection';
 
-// Lazy load das seções não críticas
+// Lazy load das seções não críticas com melhor otimização
 const ProblemSolution = lazy(() => import('@/components/sections/ProblemSolution'));
 const HomeServices = lazy(() => import('@/components/sections/HomeServices'));
 const HowItWorks = lazy(() => import('@/components/sections/HowItWorks'));
@@ -14,7 +15,7 @@ const Gallery = lazy(() => import('@/components/sections/Gallery'));
 const FinalContact = lazy(() => import('@/components/sections/FinalContact'));
 
 const LoadingFallback = () => (
-  <div className="h-32 flex items-center justify-center">
+  <div className="h-20 flex items-center justify-center">
     <div className="animate-pulse text-slate-400">Carregando...</div>
   </div>
 );
@@ -31,36 +32,36 @@ const SmartHome = () => {
           <HomeHero />
         </div>
         
-        <Suspense fallback={<LoadingFallback />}>
+        <LazySection fallback={<LoadingFallback />} threshold={0.2}>
           <ProblemSolution />
-        </Suspense>
+        </LazySection>
         
         <div id="services">
-          <Suspense fallback={<LoadingFallback />}>
+          <LazySection fallback={<LoadingFallback />} threshold={0.2}>
             <HomeServices />
-          </Suspense>
+          </LazySection>
         </div>
         
         <div id="how-it-works">
-          <Suspense fallback={<LoadingFallback />}>
+          <LazySection fallback={<LoadingFallback />} threshold={0.2}>
             <HowItWorks />
-          </Suspense>
+          </LazySection>
         </div>
         
-        <Suspense fallback={<LoadingFallback />}>
+        <LazySection fallback={<LoadingFallback />} threshold={0.2}>
           <WhyChooseUs />
-        </Suspense>
+        </LazySection>
         
         <div id="gallery">
-          <Suspense fallback={<LoadingFallback />}>
+          <LazySection fallback={<LoadingFallback />} threshold={0.2}>
             <Gallery />
-          </Suspense>
+          </LazySection>
         </div>
         
         <div id="contact">
-          <Suspense fallback={<LoadingFallback />}>
+          <LazySection fallback={<LoadingFallback />} threshold={0.2}>
             <FinalContact />
-          </Suspense>
+          </LazySection>
         </div>
       </main>
       

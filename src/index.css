@@ -79,6 +79,23 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
   }
+
+  /* Performance optimizations */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
@@ -93,9 +110,24 @@
   .section-subtitle {
     @apply text-lg md:text-xl text-slate-300 max-w-3xl mb-8;
   }
+
+  /* Optimized hover effects */
+  .hover-scale {
+    transition: transform 0.2s ease-out;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  /* Performance-optimized transitions */
+  .transition-optimized {
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    will-change: transform, opacity;
+  }
 }
 
-/* Scrollbar otimizado */
+/* Optimized scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -113,24 +145,42 @@
   background: #61dca3;
 }
 
-/* Selection otimizada */
+/* Optimized selection */
 ::selection {
   background: #61dca3;
   color: #000000;
 }
 
-/* Otimizações de performance */
-* {
-  box-sizing: border-box;
-}
-
+/* Performance optimizations */
 img {
   max-width: 100%;
   height: auto;
+  content-visibility: auto;
 }
 
-/* Reduzir repaints */
-.transition-optimized {
-  transform: translateZ(0);
-  will-change: transform;
+/* Reduce GPU usage for backgrounds */
+.bg-gradient-to-br {
+  background-attachment: local;
+}
+
+/* Optimize backdrop-blur for performance */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Optimized animations that respect reduced motion */
+@keyframes optimized-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse {
+  animation: optimized-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Content visibility for better rendering performance */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 400px;
 }

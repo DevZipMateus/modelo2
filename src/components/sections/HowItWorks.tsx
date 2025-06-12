@@ -1,8 +1,11 @@
 
 import { motion } from 'framer-motion';
 import { MessageCircle, Search, Wrench, Headphones } from 'lucide-react';
+import { usePerformance } from '@/hooks/usePerformance';
 
 const HowItWorks = () => {
+  const { reduceAnimations } = usePerformance();
+
   const steps = [
     {
       icon: MessageCircle,
@@ -30,15 +33,20 @@ const HowItWorks = () => {
     }
   ];
 
+  const MotionWrapper = reduceAnimations ? 'div' : motion.div;
+  const fadeInVariant = reduceAnimations ? {} : {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 },
+    viewport: { once: true, margin: '-50px' }
+  };
+
   return (
     <section className="relative py-20 bg-slate-900/30 backdrop-blur-sm">
       <div className="section-container">
-        <motion.div
+        <MotionWrapper
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...(!reduceAnimations && fadeInVariant)}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Como <span className="text-green-400">Funciona</span>
@@ -46,17 +54,17 @@ const HowItWorks = () => {
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
             Um processo simples e transparente para transformar sua casa
           </p>
-        </motion.div>
+        </MotionWrapper>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <motion.div
+            <MotionWrapper
               key={index}
-              className="text-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
+              className="text-center relative"
+              {...(!reduceAnimations && {
+                ...fadeInVariant,
+                transition: { duration: 0.5, delay: index * 0.1 }
+              })}
             >
               <div className="relative mb-6">
                 <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -75,7 +83,7 @@ const HowItWorks = () => {
                   <div className="w-8 h-0.5 bg-gradient-to-r from-green-400 to-blue-400"></div>
                 </div>
               )}
-            </motion.div>
+            </MotionWrapper>
           ))}
         </div>
       </div>
