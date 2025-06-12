@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Shield, Home, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -51,7 +50,7 @@ const HomeHero = () => {
   return (
     <section 
       ref={vantaRef} 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8" 
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-0" 
       style={{ backgroundColor: '#090728' }}
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto text-center">

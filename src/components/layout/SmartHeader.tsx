@@ -7,10 +7,15 @@ import { Button } from '@/components/ui/button';
 const SmartHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight * 0.9; // 90% da altura da viewport
+      
+      setIsScrolled(scrollY > 20);
+      setIsInHeroSection(scrollY < heroHeight);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -57,7 +62,10 @@ const SmartHeader = () => {
   return (
     <header
       className={cn(
-        'fixed w-full z-50 transition-all duration-300 ease-in-out py-4',
+        'fixed w-full z-50 transition-all duration-500 ease-in-out py-4',
+        isInHeroSection 
+          ? 'opacity-0 pointer-events-none transform -translate-y-full'
+          : 'opacity-100 pointer-events-auto transform translate-y-0',
         isScrolled
           ? 'bg-black/80 backdrop-blur-md shadow-lg border-b border-green-500/20'
           : 'bg-transparent'
