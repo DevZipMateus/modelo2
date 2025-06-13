@@ -11,20 +11,35 @@ const FinalContact = () => {
     window.open('https://wa.me/5521999999999?text=Olá!%20Estou%20pronto%20para%20transformar%20minha%20casa%20com%20automação%20e%20segurança.%20Gostaria%20de%20agendar%20uma%20visita!', '_blank');
   };
 
-  const MotionWrapper = reduceAnimations ? 'div' : motion.div;
-  const fadeInVariant = reduceAnimations ? {} : {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.5 },
-    viewport: { once: true, margin: '-50px' }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: reduceAnimations ? 0 : 0.1,
+        delayChildren: reduceAnimations ? 0 : 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: reduceAnimations ? 0 : 0.5 }
+    }
   };
 
   return (
     <section className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-br from-green-900/20 to-blue-900/20 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <MotionWrapper
+        <motion.div
           className="text-center mb-8 sm:mb-12 md:mb-16"
-          {...(!reduceAnimations && fadeInVariant)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={itemVariants}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
             Pronto para <span className="text-green-400">Transformar</span><br className="hidden sm:block" />
@@ -34,12 +49,10 @@ const FinalContact = () => {
             Não perca mais tempo! Transforme sua casa em um lar inteligente e seguro hoje mesmo.
           </p>
           
-          <MotionWrapper
+          <motion.div
             className="inline-block"
-            {...(!reduceAnimations && {
-              whileHover: { scale: 1.02 },
-              whileTap: { scale: 0.98 }
-            })}
+            whileHover={reduceAnimations ? {} : { scale: 1.02 }}
+            whileTap={reduceAnimations ? {} : { scale: 0.98 }}
           >
             <Button
               onClick={handleWhatsAppClick}
@@ -48,30 +61,33 @@ const FinalContact = () => {
               <img src="/lovable-uploads/5a46be1b-4445-4178-8d9f-a7e8edfd42d5.png" alt="WhatsApp" className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 mr-2 sm:mr-3 md:mr-4" />
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">Fale Conosco Via WhatsApp!</span>
             </Button>
-          </MotionWrapper>
-        </MotionWrapper>
+          </motion.div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-12 md:mt-16">
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-12 md:mt-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={containerVariants}
+        >
           {[
             { icon: Phone, title: 'Telefone', info: '(21) 99999-9999' },
             { icon: Mail, title: 'Email', info: 'contato@smartsecure.com' },
             { icon: MapPin, title: 'Localização', info: 'Rio de Janeiro - RJ' },
             { icon: Clock, title: 'Atendimento', info: '24h - Todos os dias' }
           ].map((item, index) => (
-            <MotionWrapper
+            <motion.div
               key={index}
               className="text-center p-3 sm:p-4 md:p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10"
-              {...(!reduceAnimations && {
-                ...fadeInVariant,
-                transition: { duration: 0.5, delay: 0.1 + index * 0.1 }
-              })}
+              variants={itemVariants}
             >
               <item.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-green-400 mx-auto mb-2 sm:mb-3 md:mb-4" />
               <h3 className="text-white font-semibold mb-1 sm:mb-2 text-sm sm:text-base">{item.title}</h3>
               <p className="text-slate-400 text-xs sm:text-sm break-all">{item.info}</p>
-            </MotionWrapper>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

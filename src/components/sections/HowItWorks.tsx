@@ -33,20 +33,35 @@ const HowItWorks = () => {
     }
   ];
 
-  const MotionWrapper = reduceAnimations ? 'div' : motion.div;
-  const fadeInVariant = reduceAnimations ? {} : {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.5 },
-    viewport: { once: true, margin: '-50px' }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: reduceAnimations ? 0 : 0.1,
+        delayChildren: reduceAnimations ? 0 : 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: reduceAnimations ? 0 : 0.5 }
+    }
   };
 
   return (
     <section className="relative py-12 sm:py-16 md:py-20 bg-slate-900/30 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <MotionWrapper
+        <motion.div
           className="text-center mb-8 sm:mb-12 md:mb-16"
-          {...(!reduceAnimations && fadeInVariant)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={itemVariants}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
             Como <span className="text-green-400">Funciona</span>
@@ -54,17 +69,20 @@ const HowItWorks = () => {
           <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto px-4 sm:px-0">
             Um processo simples e transparente para transformar sua casa
           </p>
-        </MotionWrapper>
+        </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={containerVariants}
+        >
           {steps.map((step, index) => (
-            <MotionWrapper
+            <motion.div
               key={index}
               className="text-center relative"
-              {...(!reduceAnimations && {
-                ...fadeInVariant,
-                transition: { duration: 0.5, delay: index * 0.1 }
-              })}
+              variants={itemVariants}
             >
               <div className="relative mb-4 sm:mb-6">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
@@ -83,9 +101,9 @@ const HowItWorks = () => {
                   <div className="w-8 h-0.5 bg-gradient-to-r from-green-400 to-blue-400"></div>
                 </div>
               )}
-            </MotionWrapper>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

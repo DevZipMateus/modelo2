@@ -16,31 +16,36 @@ const LazySection = ({ children, fallback, threshold = 0.1 }: LazySectionProps) 
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
+          observer.disconnect(); // Disconnect immediately after first intersection
         }
       },
-      { threshold }
+      { 
+        threshold,
+        rootMargin: '50px' // Load content slightly before it becomes visible
+      }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
+      observer.disconnect();
     };
   }, [threshold]);
 
   return (
-    <div ref={ref} className="min-h-[50px]">
+    <div ref={ref}>
       {isVisible ? (
-        <Suspense fallback={fallback || <div className="h-32 flex items-center justify-center"><div className="animate-pulse text-slate-400">Carregando...</div></div>}>
+        <Suspense fallback={fallback || <div className="h-32 animate-pulse bg-slate-200 rounded" />}>
           {children}
         </Suspense>
       ) : (
-        fallback || <div className="h-32 flex items-center justify-center"><div className="animate-pulse text-slate-400">Carregando...</div></div>
+        fallback || <div className="h-32 animate-pulse bg-slate-200 rounded" />
       )}
     </div>
   );

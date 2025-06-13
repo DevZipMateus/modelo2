@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Shield, Home, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -39,13 +40,25 @@ const HomeHero = () => {
     };
   }, [reduceAnimations]);
 
-  const fadeInVariant = reduceAnimations ? {} : {
-    initial: { opacity: 0, y: 10 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.4 }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: reduceAnimations ? 0 : 0.05,
+        delayChildren: reduceAnimations ? 0 : 0.1
+      }
+    }
   };
 
-  const MotionWrapper = reduceAnimations ? 'div' : motion.div;
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: reduceAnimations ? 0 : 0.4 }
+    }
+  };
 
   return (
     <section 
@@ -53,41 +66,37 @@ const HomeHero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-0" 
       style={{ backgroundColor: '#090728' }}
     >
-      <div className="relative z-10 w-full max-w-7xl mx-auto text-center">
-        <MotionWrapper {...!reduceAnimations && fadeInVariant} className="mb-4 sm:mb-6 md:mb-8">
+      <motion.div 
+        className="relative z-10 w-full max-w-7xl mx-auto text-center"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div className="mb-4 sm:mb-6 md:mb-8" variants={itemVariants}>
           <div className="inline-flex items-center space-x-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-green-400/30 bg-green-400/10 mb-4 sm:mb-6">
             <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-green-400" />
             <span className="text-green-400 text-xs sm:text-sm font-medium">Automação & Segurança Residencial</span>
           </div>
-        </MotionWrapper>
+        </motion.div>
 
-        <MotionWrapper 
+        <motion.h1 
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight" 
-          {...!reduceAnimations && {
-            ...fadeInVariant,
-            transition: { duration: 0.4, delay: 0.05 }
-          }}
+          variants={itemVariants}
         >
           Sua Casa <span className="text-green-400">Inteligente</span><br className="hidden sm:block" />
           <span className="sm:hidden"> </span>e <span className="text-blue-400">Segura</span>
-        </MotionWrapper>
+        </motion.h1>
 
-        <MotionWrapper 
+        <motion.p 
           className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto mb-4 sm:mb-6 md:mb-8 bg-black/30 rounded-lg p-3 sm:p-4 backdrop-blur-sm"
-          {...!reduceAnimations && {
-            ...fadeInVariant,
-            transition: { duration: 0.4, delay: 0.1 }
-          }}
+          variants={itemVariants}
         >
           Transforme seu lar em um ambiente de <strong>conforto</strong>, <strong>eficiência</strong> e <strong>tranquilidade</strong> com nossas soluções personalizadas
-        </MotionWrapper>
+        </motion.p>
 
-        <MotionWrapper 
+        <motion.div 
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 md:mb-12" 
-          {...!reduceAnimations && {
-            ...fadeInVariant,
-            transition: { duration: 0.4, delay: 0.15 }
-          }}
+          variants={itemVariants}
         >
           <Button 
             onClick={handleWhatsAppClick} 
@@ -104,14 +113,11 @@ const HomeHero = () => {
           >
             Conheça Nossos Serviços
           </Button>
-        </MotionWrapper>
+        </motion.div>
 
-        <MotionWrapper 
+        <motion.div 
           className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6 max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-auto" 
-          {...!reduceAnimations && {
-            ...fadeInVariant,
-            transition: { duration: 0.4, delay: 0.2 }
-          }}
+          variants={itemVariants}
         >
           {[
             { icon: Home, title: 'Automação', desc: 'Controle total' },
@@ -132,8 +138,8 @@ const HomeHero = () => {
               </div>
             );
           })}
-        </MotionWrapper>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
