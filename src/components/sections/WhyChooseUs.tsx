@@ -1,5 +1,4 @@
 
-import { motion } from 'framer-motion';
 import { Award, Clock, Users, Wrench, Shield, Star } from 'lucide-react';
 
 const WhyChooseUs = () => {
@@ -57,59 +56,40 @@ const WhyChooseUs = () => {
   return (
     <section className="relative py-20 bg-black/30 backdrop-blur-sm">
       <div className="section-container">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Por Que Escolher a <span className="text-green-400">SmartSecure</span>
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
             Somos referência em automação e segurança residencial
           </p>
-        </motion.div>
+        </div>
 
         {/* Diferenciais */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {differentials.map((item, index) => (
-            <motion.div
+            <div
               key={index}
               className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
             >
               <item.icon className="h-12 w-12 text-green-400 mb-4" />
               <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
               <p className="text-slate-400">{item.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Depoimentos */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <div>
           <h3 className="text-3xl font-bold text-white text-center mb-12">
             O que nossos <span className="text-green-400">clientes</span> dizem
           </h3>
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <motion.div
+              <div
                 key={index}
                 className="bg-green-500/10 border border-green-500/20 rounded-xl p-6"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
               >
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -123,10 +103,10 @@ const WhyChooseUs = () => {
                   </div>
                   <span className="text-white font-semibold">{testimonial.name}</span>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
