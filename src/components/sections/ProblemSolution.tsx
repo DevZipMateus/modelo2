@@ -47,17 +47,21 @@ const ProblemSolution = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: reduceAnimations ? 0 : 0.1
+        staggerChildren: reduceAnimations ? 0 : 0.15,
+        delayChildren: reduceAnimations ? 0 : 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: reduceAnimations ? 0 : 0.8 }
+      transition: { 
+        duration: reduceAnimations ? 0.2 : 0.6,
+        ease: "easeOut"
+      }
     }
   };
 
@@ -68,7 +72,7 @@ const ProblemSolution = () => {
           className="text-center mb-8 sm:mb-12 md:mb-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
           variants={itemVariants}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
@@ -84,7 +88,7 @@ const ProblemSolution = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 md:mb-20"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           variants={containerVariants}
         >
           {problems.map((problem, index) => (
@@ -104,7 +108,7 @@ const ProblemSolution = () => {
           className="text-center mb-8 sm:mb-12 md:mb-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
           variants={itemVariants}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
@@ -120,7 +124,7 @@ const ProblemSolution = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
           variants={containerVariants}
         >
           {solutions.map((solution, index) => (

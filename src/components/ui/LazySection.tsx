@@ -1,5 +1,5 @@
 
-import { lazy, Suspense, useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface LazySectionProps {
   children: React.ReactNode;
@@ -9,19 +9,21 @@ interface LazySectionProps {
 
 const LazySection = ({ children, fallback, threshold = 0.1 }: LazySectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !hasLoaded) {
           setIsVisible(true);
-          observer.disconnect(); // Disconnect immediately after first intersection
+          setHasLoaded(true);
+          observer.disconnect();
         }
       },
       { 
         threshold,
-        rootMargin: '50px' // Load content slightly before it becomes visible
+        rootMargin: '100px'
       }
     );
 
@@ -36,17 +38,11 @@ const LazySection = ({ children, fallback, threshold = 0.1 }: LazySectionProps) 
       }
       observer.disconnect();
     };
-  }, [threshold]);
+  }, [threshold, hasLoaded]);
 
   return (
-    <div ref={ref}>
-      {isVisible ? (
-        <Suspense fallback={fallback || <div className="h-32 animate-pulse bg-slate-200 rounded" />}>
-          {children}
-        </Suspense>
-      ) : (
-        fallback || <div className="h-32 animate-pulse bg-slate-200 rounded" />
-      )}
+    <div ref={ref} style={{ minHeight: isVisible ? 'auto' : '200px' }}>
+      {isVisible ? children : (fallback || <div className="h-32 animate-pulse bg-slate-200 rounded" />)}
     </div>
   );
 };

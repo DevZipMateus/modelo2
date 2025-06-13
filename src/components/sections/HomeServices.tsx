@@ -2,8 +2,11 @@
 import { motion } from 'framer-motion';
 import { Home, Shield, Camera, Lightbulb, Thermometer, Speaker, Lock, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { usePerformance } from '@/hooks/usePerformance';
 
 const HomeServices = () => {
+  const { reduceAnimations } = usePerformance();
+
   const handleWhatsAppClick = (service: string) => {
     window.open(`https://wa.me/5521999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20${service}.`, '_blank');
   };
@@ -50,15 +53,50 @@ const HomeServices = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: reduceAnimations ? 0 : 0.1,
+        delayChildren: reduceAnimations ? 0 : 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: reduceAnimations ? 0.2 : 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: reduceAnimations ? 0.3 : 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <section id="services" className="relative py-20 bg-black/50 backdrop-blur-sm">
       <div className="section-container">
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+          variants={headerVariants}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Nossos <span className="text-green-400">Serviços</span>
@@ -71,25 +109,25 @@ const HomeServices = () => {
         {/* Automação Residencial */}
         <motion.div
           className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
+          variants={headerVariants}
         >
           <div className="flex items-center justify-center mb-12">
             <Home className="h-8 w-8 text-green-400 mr-3" />
             <h3 className="text-3xl font-bold text-white">Automação Residencial</h3>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+          >
             {automationServices.map((service, index) => (
               <motion.div
                 key={index}
                 className="bg-green-500/10 border border-green-500/20 rounded-xl p-6 hover:bg-green-500/20 transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                variants={itemVariants}
               >
                 <service.icon className="h-12 w-12 text-green-400 mb-4" />
                 <h4 className="text-xl font-semibold text-white mb-3">{service.title}</h4>
@@ -111,30 +149,30 @@ const HomeServices = () => {
                 </Button>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Segurança Residencial */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -50px 0px" }}
+          variants={headerVariants}
         >
           <div className="flex items-center justify-center mb-12">
             <Shield className="h-8 w-8 text-blue-400 mr-3" />
             <h3 className="text-3xl font-bold text-white">Segurança Residencial</h3>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+          >
             {securityServices.map((service, index) => (
               <motion.div
                 key={index}
                 className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6 hover:bg-blue-500/20 transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                variants={itemVariants}
               >
                 <service.icon className="h-12 w-12 text-blue-400 mb-4" />
                 <h4 className="text-xl font-semibold text-white mb-3">{service.title}</h4>
@@ -156,7 +194,7 @@ const HomeServices = () => {
                 </Button>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
