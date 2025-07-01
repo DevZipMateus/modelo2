@@ -20,7 +20,6 @@ const SaborHeader = () => {
     { href: '#inicio', label: 'Início' },
     { href: '#sobre', label: 'Sobre' },
     { href: '#servicos', label: 'Serviços' },
-    { href: '#planos', label: 'Planos' },
     { href: '#depoimentos', label: 'Depoimentos' },
     { href: '#localizacao', label: 'Localização' },
     { href: '#contato', label: 'Contato' },
@@ -36,7 +35,7 @@ const SaborHeader = () => {
           {/* Logo */}
           <a href="#inicio" className="flex-shrink-0" aria-label="Sabor do Céu - Página inicial">
             <img
-              src="/lovable-uploads/6325941d-60a7-414f-86bb-7ebea6b4155c.png"
+              src="/lovable-uploads/4b578483-b23a-4ae0-b5da-6d37bf6f05b4.png"
               alt="Sabor do Céu - Bolos e Doces"
               className="h-12 w-12 lg:h-16 lg:w-16"
             />

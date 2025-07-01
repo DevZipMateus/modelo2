@@ -3,7 +3,6 @@ import Header from '@/components/layout/SaborHeader';
 import Hero from '@/components/sections/SaborHero';
 import About from '@/components/sections/SaborAbout';
 import Services from '@/components/sections/SaborServices';
-import Plans from '@/components/sections/SaborPlans';
 import Testimonials from '@/components/sections/SaborTestimonials';
 import Location from '@/components/sections/SaborLocation';
 import Contact from '@/components/sections/SaborContact';
@@ -18,7 +17,6 @@ const SaborDoCeu = () => {
         <Hero />
         <About />
         <Services />
-        <Plans />
         <Testimonials />
         <Location />
         <Contact />
